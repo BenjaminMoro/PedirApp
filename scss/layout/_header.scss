@@ -1,0 +1,243 @@
+.header{
+    background-color: rgb(235, 192, 192);
+    width: 100vw;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5vw;
+}
+
+.tittle{
+    text-decoration: none;
+    color: black;
+}
+
+.activar_menu{
+    width: 12vw;
+    position: absolute;
+    top: auto;
+    left: 0;
+}
+
+.desplegable{
+
+    background-color: $color_principal;
+    width: 50vw;
+    height: 100vh;
+    border-top: 1px black solid;
+    padding-top: 20px;
+    position: absolute;
+    z-index: 1;
+    left: -50vw;
+    top: 80px;
+    ul li{
+        list-style: none;
+        margin-left: 20px;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 1px black;
+        a{
+            color: white;
+            text-decoration: none;
+            font-size: 5vw;
+        }
+        p{
+            color: white;
+            font-size: 5vw;
+        }
+    }
+}
+
+.desplegableActivo{
+    animation: desplazamiento_navBar 0.3s linear forwards;
+}
+
+.desplegableDesactivo{
+    animation: desplazamientoB_navBar 0.3s linear;
+}
+
+@keyframes desplazamiento_navBar{
+    0%{left: -50;}
+    20%{left: -40;}
+    40%{left: -30;}
+    60%{left: -20;}
+    80%{left: -10;}
+    100%{left: 0;}
+}
+
+@keyframes desplazamientoB_navBar{
+    0%{left: 0;}
+    20%{left: -10;}
+    40%{left: -20;}
+    60%{left: -30;}
+    80%{left: -40;}
+    100%{left: -50;}
+}
+
+.cerrar_navBar{
+    position: absolute;
+    width: 100vw;
+    height: 0px;
+    z-index: 5;
+}
+
+.cerrar_navBarActivo{
+    height: 90px;
+
+}
+
+.filtroActivo{
+    z-index: 1;
+    position: absolute;
+    top: 80px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.3);
+    box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    animation: desplazamiento_filtro 0.3s linear forwards;
+}
+
+@keyframes desplazamiento_filtro{
+    0%{left: 0;}
+    20%{left: 10vw;}
+    40%{left: 20vw;}
+    60%{left: 30vw;}
+    80%{left: 40vw;}
+    100%{left: 50vw;}
+}
+
+.filtroInfoActivo{
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.3);
+    box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+}
+
+.cardInfo{
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: rgb(255, 255, 255);
+    z-index: 3;
+    top: 5vh;
+    left: 5vw;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 40px;
+    h3{
+        font-size: 0;
+    }
+    ul{
+        margin-top: 50px;
+        li{
+            list-style: none;
+            margin-bottom: 10px;
+            font-size: 0;
+            span{
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.cerrar:after{
+    content: "\d7";
+    font-size: 50px; 
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+
+.cardInfoActivo{
+    width: 90vw;
+    height: 90vh;
+    h3{
+        font-size: 6vw;
+    }
+    ul{
+        li{
+            font-size: 4vw;
+        }
+    }
+}
+
+.cardUbicacion{
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: rgb(255, 255, 255);
+    z-index: 3;
+    top: 5vh;
+    left: 5vw;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 40px;
+    h3{
+        font-size: 0;
+    }
+    p{
+        margin-top: 50px;
+        font-size: 0;
+    }
+    iframe{
+        margin-top: 20px;
+        width: 0;
+        height: 0;
+    }
+}
+
+.cardUbicacionActivo{
+    position: absolute;
+    width: 90vw;
+    height: 90vh;
+    background-color: rgb(255, 255, 255);
+    z-index: 3;
+    top: 5vh;
+    left: 5vw;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 40px;
+    h3{
+        font-size: 6vw;
+    }
+    p{
+        font-size: 4vw;
+    }
+    iframe{
+        width: 80vw;
+        height: 80vw;
+    }
+}
+
+.cerrarUbi:after{
+    content: "\d7";
+    font-size: 50px; 
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+
+.subtittle{
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+    "flecha p none";
+    p{
+        grid-area: p;
+        align-self: center;
+        justify-self: center;
+    }
+    .flecha{
+        align-self: center;
+        grid-area: flecha;
+    }
+}
