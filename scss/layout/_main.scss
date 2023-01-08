@@ -50,8 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
     border-radius: 10px;
     font-size: 8vw;
     text-decoration: none;
@@ -69,4 +68,13 @@
     border-radius: 10px;
     background-size: cover;
     filter: brightness(80%);
+}
+
+.precio{
+    color: #000;
+}
+
+.precio::before{
+    content: "$";
+    color: #000;
 }

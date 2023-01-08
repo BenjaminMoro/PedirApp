@@ -90,7 +90,8 @@ function agregar_al_producto(e){
     let texto = e.target;
     let link = texto.parentNode
     let img = link.firstElementChild
-    let clase = link.parentNode
+    let clase = link.parentNode.parentNode
+    let precio = link.parentNode.firstElementChild
 
     if(texto.classList != "text_card"){
         texto = link.lastElementChild
@@ -99,11 +100,13 @@ function agregar_al_producto(e){
     let nombre_producto = texto.textContent
     let img_producto = img.src
     let clase_producto = clase.classList[1]
+    let precio_producto = precio.textContent
 
     let producto = {
         nombre: nombre_producto,
         img: img_producto,
         clase: clase_producto, 
+        precio: precio_producto,
     }
 
     /* Guardando en LocalStorage */
@@ -132,8 +135,17 @@ function tipo_producto(){
     let lugar_img = document.querySelector(".img_producto")
     lugar_img.innerHTML = `<h3 class="text_producto">${recuperando_producto.nombre}</h3>`
 
+    let lugar_precio = document.querySelector(".precio_poner")
+    lugar_precio.innerHTML = `<p>$${recuperando_producto.precio}</p>`
+
     lugar_img.append(div)
 }
+
+function agregar_precio(){
+    recuperando_producto = localStorage.getItem("producto")
+    recuperando_producto = JSON.parse(recuperando_producto)
+}
+
 /* Funciones particulares */
 let check1 = document.querySelector(".check1")
 let check2 = document.querySelector(".check2")
@@ -180,11 +192,13 @@ let tipo_comida = recuperando_producto.clase
 
 if(tipo_comida == "main_hamburguesas"){
     tipo_producto()
+    agregar_precio()
 }
 
 if(tipo_comida == "main_lomitos"){
     tipo_producto()
     tipo_lomo()
+    agregar_precio()
 }
 
 if(tipo_comida == "main_papas"){
@@ -196,3 +210,37 @@ if(tipo_comida == "main_bebidas"){
     tipo_producto()
     tipo_bebida()
 }
+
+/* Sumando cantidad */
+
+let botones = document.querySelector(".cantidad")
+
+let btn_sumar = botones.firstElementChild
+let btn_restar = botones.lastElementChild
+let numero = document.querySelector(".contador")
+
+function actualizar_precio(){
+    recuperando_producto = localStorage.getItem("producto")
+    recuperando_producto = JSON.parse(recuperando_producto)
+
+    recuperando_producto.precio = parseInt(recuperando_producto.precio) * numero.textContent
+
+    let lugar_precio = document.querySelector(".precio_poner")
+    lugar_precio.innerHTML = `<p>$${recuperando_producto.precio}</p>`
+
+}
+
+btn_sumar.addEventListener("click", () =>{
+
+    numero.textContent = parseInt(numero.textContent) + 1
+    actualizar_precio()
+})
+
+
+btn_restar.addEventListener("click", () =>{
+
+    if (parseInt(numero.textContent) > 1)
+        numero.textContent = parseInt(numero.textContent) - 1
+        actualizar_precio()
+})
+
