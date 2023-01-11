@@ -57,6 +57,19 @@
     font-weight: bold;
 }
 
+.cardd{
+    width: 90vw;
+    height: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-size: 8vw;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .text_card{
     color: white;
     position: absolute;
@@ -77,4 +90,28 @@
 .precio::before{
     content: "$";
     color: #000;
+}
+
+.body{
+    margin-bottom: 5vh;
+}
+
+.tittle_producto_carrito{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 18px;
+    p{
+        margin-right: 10px;
+    }
+}
+
+.producto_carrito{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    p{
+        margin-right: 10px;
+    }
 }

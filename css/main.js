@@ -23,8 +23,8 @@ abrir_navBar.addEventListener("click", () => {
     navBar.classList.add("desplegableActivo")
     filtro.classList.add("filtroActivo")
     cerrar_navBar.classList.add("cerrar_navBarActivo")
-    main.classList.add("main_desplazamiento")
-
+    main.classList.add("main_desplazamiento")  
+    
 })
 
 cerrar_navBar.addEventListener("click", () => {
@@ -84,6 +84,9 @@ cerrar_ubi_card.addEventListener("click", () => {
 let boton_card = document.querySelectorAll(".card")
 
 /* Funciones */
+
+let obj_producto = ""
+
 function agregar_al_producto(e){
     console.log(e)
 
@@ -113,37 +116,44 @@ function agregar_al_producto(e){
     let producto_json = JSON.stringify(producto);
     localStorage.setItem("producto", producto_json)
 
-    /* recuperando_producto = localStorage.getItem("producto")
+    return obj_producto = producto
+
+ /* recuperando_producto = localStorage.getItem("producto")
     recuperando_producto = JSON.parse(recuperando_producto) */
 }
 
 /* Agregar evento a todos */
 for(let boton of boton_card){
     boton.addEventListener("click", agregar_al_producto)
+    console.log(agregar_al_producto)
 }
 
 /* -------------------------------------------------------------- */
 /* Modificar el HTML de la pagina Producto, segun su tipo */
 /* Funcion que todos obtienen */
 function tipo_producto(){
+    console.log(obj_producto)
+
     recuperando_producto = localStorage.getItem("producto")
     recuperando_producto = JSON.parse(recuperando_producto)
 
     let div = document.createElement("div")
-    div.innerHTML = `<img src="${recuperando_producto.img}" class="card1">`
+    div.innerHTML = `<img src="${obj_producto.img}" class="card1">`
+
+    div.classList = "card_producto"
 
     let lugar_img = document.querySelector(".img_producto")
-    lugar_img.innerHTML = `<h3 class="text_producto">${recuperando_producto.nombre}</h3>`
+    lugar_img.innerHTML = `<div class="subtittle-producto">
+                            <div class="subtittle-producto">
+                                <a href="../index.html" class="flecha"><img src="../img/flecha_atras.png" alt=""></a>
+                            </div>
+                            <h3 class="text_producto">${recuperando_producto.nombre}</h3>
+                            </div>`
 
     let lugar_precio = document.querySelector(".precio_poner")
     lugar_precio.innerHTML = `<p>$${recuperando_producto.precio}</p>`
 
     lugar_img.append(div)
-}
-
-function agregar_precio(){
-    recuperando_producto = localStorage.getItem("producto")
-    recuperando_producto = JSON.parse(recuperando_producto)
 }
 
 /* Funciones particulares */
@@ -190,57 +200,147 @@ recuperando_producto = JSON.parse(recuperando_producto)
 
 let tipo_comida = recuperando_producto.clase
 
-if(tipo_comida == "main_hamburguesas"){
-    tipo_producto()
-    agregar_precio()
+let index_pag = document.querySelector(".main")
+
+if(index_pag.classList[1] == "index"){
+    tipo_comida = ""
 }
 
-if(tipo_comida == "main_lomitos"){
+if(tipo_comida == "Hamburguesa"){
+    tipo_producto()
+}
+
+if(tipo_comida == "Lomito"){
     tipo_producto()
     tipo_lomo()
-    agregar_precio()
 }
 
-if(tipo_comida == "main_papas"){
+if(tipo_comida == "Papas"){
     tipo_producto()
     tipo_papa()
 }
 
-if(tipo_comida == "main_bebidas"){
+if(tipo_comida == "Bebidas"){
     tipo_producto()
     tipo_bebida()
 }
 
-/* Sumando cantidad */
+/* Poder sumar y restar cantidad, y calcular el precio*/
 
-let botones = document.querySelector(".cantidad")
+if(index_pag.classList[1] != "index"){
+    let botones = document.querySelector(".cantidad")
 
-let btn_sumar = botones.firstElementChild
-let btn_restar = botones.lastElementChild
-let numero = document.querySelector(".contador")
+    let btn_sumar = botones.firstElementChild
+    let btn_restar = botones.lastElementChild
+    let numero = document.querySelector(".contador")
+    let btn_agregar = document.querySelector(".btn_agregar")
+    btn_agregar = btn_agregar.firstElementChild
 
-function actualizar_precio(){
+    precio_total = 0
+
+    function actualizar_precio(){
+        recuperando_producto = localStorage.getItem("producto")
+        recuperando_producto = JSON.parse(recuperando_producto)
+
+        recuperando_producto.precio = parseInt(recuperando_producto.precio) * numero.textContent
+
+        let lugar_precio = document.querySelector(".precio_poner")
+        lugar_precio.innerHTML = `<p>$${recuperando_producto.precio}</p>`
+
+        precio_total = recuperando_producto.precio
+
+        return precio_total
+    }
+
+    let array = []
+
+    function agregar_carro(){
+        recuperando_producto = localStorage.getItem("producto")
+        recuperando_producto = JSON.parse(recuperando_producto)
+
+        array.push([recuperando_producto.clase, recuperando_producto.nombre , precio_total])
+
+        console.log(array)
+
+        let array_json = JSON.stringify(array);
+        localStorage.setItem("array", array_json)
+    }
+    btn_sumar.addEventListener("click", () =>{
+        numero.textContent = parseInt(numero.textContent) + 1
+        actualizar_precio()
+    })
+
+    btn_restar.addEventListener("click", () =>{
+        if (parseInt(numero.textContent) > 1)
+            numero.textContent = parseInt(numero.textContent) - 1
+            actualizar_precio()
+    })
+
+    btn_agregar.addEventListener("click", () =>{
+
+        agregar_carro()
+    })
+}
+
+/* Mostrar el precio de lo agregado */
+
+function precio_footer(){
+    recuperando_precio = localStorage.getItem("precio")
+    recuperando_precio = JSON.parse(recuperando_precio)
+
+    recuperando_total = localStorage.getItem("precio_total")
+    recuperando_total = JSON.parse(recuperando_total)
+
+    recuperando_total = recuperando_total + recuperando_precio
+
+    let footer = document.querySelector(".footer")
+    footer.lastElementChild.textContent = "$" + recuperando_total
+}
+
+if(index_pag.classList[1] == "index"){
+    precio_footer()
+}
+
+/* Abrir y cerrar la parte del pedido total */
+let datos_carrito = document.querySelector(".agregar_datos_carrito")
+
+if(index_pag.classList[1] == "index"){
     recuperando_producto = localStorage.getItem("producto")
     recuperando_producto = JSON.parse(recuperando_producto)
 
-    recuperando_producto.precio = parseInt(recuperando_producto.precio) * numero.textContent
+    recuperando_array = localStorage.getItem("array")
+    recuperando_array = JSON.parse(recuperando_array)
 
-    let lugar_precio = document.querySelector(".precio_poner")
-    lugar_precio.innerHTML = `<p>$${recuperando_producto.precio}</p>`
+    console.log(recuperando_array)
 
+    for(let i = 0; i < recuperando_array.length ; i = i+1){
+
+        console.log(recuperando_array[i][0])
+
+        let carro = document.createElement("tr")
+            carro.classList = "producto_carrito"
+            carro.innerHTML = ` <td>${recuperando_array[i][0]} ${recuperando_array[i][1]}</td>
+                                <td>$${recuperando_array[i][2]}</td>
+                                <button class="btn_borrar"></button>`
+
+            datos_carrito.append(carro)
+    }
 }
 
-btn_sumar.addEventListener("click", () =>{
+let footer = document.querySelector(".footer")
+let ver_pedido = footer.firstElementChild
 
-    numero.textContent = parseInt(numero.textContent) + 1
-    actualizar_precio()
+let pedido_card = document.querySelector(".pedido")
+let cerrar_pedido = document.querySelector(".cerrar_pedi")
+
+ver_pedido.addEventListener("click", () =>{
+    pedido_card.classList.remove("pedido_desactivo")
+    filtro.classList.add("filtroInfoActivo")
+    cerrar_pedido.classList.add("cerrar_pedido")
 })
 
-
-btn_restar.addEventListener("click", () =>{
-
-    if (parseInt(numero.textContent) > 1)
-        numero.textContent = parseInt(numero.textContent) - 1
-        actualizar_precio()
+cerrar_pedido.addEventListener("click", () =>{
+    pedido_card.classList.add("pedido_desactivo")
+    filtro.classList.remove("filtroInfoActivo")
+    cerrar_pedido.classList.remove("cerrar_pedido")
 })
-

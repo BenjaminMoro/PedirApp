@@ -1,5 +1,5 @@
 .header{
-    background-color: rgb(235, 192, 192);
+    background-color: $color_principal;
     width: 100vw;
     height: 80px;
     display: flex;
@@ -237,7 +237,52 @@
         justify-self: center;
     }
     .flecha{
+        width: min-content;
+        margin-left: 10px;
         align-self: center;
         grid-area: flecha;
+        display: flex;
+        align-items: center;
     }
+}
+
+.pedido{
+    width: 80vw;
+    height: 80vh;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 10vh;
+    border-radius: 10px;
+    z-index: 2;
+    text-align: center;
+    h3{
+        margin-top: 20px;
+    }
+}
+
+.pedido_desactivo{
+    width: 0;
+    h3{
+        font-size: 0;
+    }
+    p{
+        font-size: 0;
+    }
+    div{
+        width: 0;
+        font-size: 0;
+    }
+    tr{
+        width: 0;
+        font-size: 0;
+    }
+}
+
+.cerrar_pedido:after{
+    content: "\d7";
+    height: 40px;
+    font-size: 50px; 
+    position: absolute;
+    bottom: 76vh;
+    right: 10px;
 }

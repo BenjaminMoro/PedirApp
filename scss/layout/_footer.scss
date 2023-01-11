@@ -1,9 +1,14 @@
 .footer{
-    margin-top: 50px;
-    background-color: $color_principal;
+    position: fixed;
+    top: 95vh;
     width: 100vw;
-    height: 40px;
+    height: 5vh;
+    background-color: $color_principal;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    p{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }

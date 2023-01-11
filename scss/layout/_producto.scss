@@ -1,5 +1,5 @@
 .img_producto{
-    width: 90vw;
+    width: 100vw;
     height: 30vw;
     margin: auto;
     margin-top: 30px;
@@ -8,11 +8,16 @@
         height: 100%;
         border-radius: 5px;
     }
+
+    .card_producto{
+        width: 90vw;
+        margin: auto;
+    }
 }
 
 .opciones_producto{
     margin: auto;
-    margin-top: 40px;
+    margin-top: 60px;
     width: 90vw;
     margin-bottom: 15px;
     color: black;
@@ -37,22 +42,14 @@
 
 .text_producto{
     color: black;
-}
-
-.footer_producto{
-    position: absolute;
-    top: 95vh;
-    width: 100vw;
-    height: 5vh;
-    background-color: $color_principal;
-    display: flex;
-    align-items: center;
+    padding-bottom: 9px;
+    margin-left: 10px;
 }
 
 .btn_agregar{
     position: absolute;
     right: 10px;
-    button{
+    a{
         color: #000000;
         font-size: 20px;
         padding: 0.5vh;
@@ -114,3 +111,19 @@
     height:50%;
     border-left:3px solid black;
   }
+
+  .subtittle-producto{
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer_producto{
+    position: fixed;
+    top: 95vh;
+    width: 100vw;
+    height: 5vh;
+    background-color: $color_principal;
+    display: flex;
+    align-items: center;
+}
